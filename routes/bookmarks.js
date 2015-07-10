@@ -4,7 +4,7 @@ var express = require('express');
 var router = express.Router();
 
 var pg = require('pg');
-var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/todo';
+var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/dataviewer';
 
 router.get('/api/v1/bookmarks', function(req, res) {
   var results = [];
@@ -12,7 +12,7 @@ router.get('/api/v1/bookmarks', function(req, res) {
   // Get a Postgres client from the connection pool
   pg.connect(connectionString, function(err, client, done) {
     // SQL Query > Select Data
-    var query = client.query("SELECT * FROM items ORDER BY id ASC;");
+    var query = client.query("SELECT * FROM bookmarks ORDER BY id ASC;");
 
     // Stream results back one row at a time
     query.on('row', function(row) {
@@ -22,6 +22,10 @@ router.get('/api/v1/bookmarks', function(req, res) {
     // After all data is returned, close connection and return results
     query.on('end', function() {
         client.end();
+        // TODO Remove that or at least set a higher level
+        if(results.length > 100) {
+          results = results.splice(0, 100);
+        }
         return res.json(results);
     });
 
