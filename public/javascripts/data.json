@@ -1,0 +1,26 @@
+{
+  "nodes":[
+    {"name":"Jason","group":1},
+    {"name":"Peter","group":2},
+    {"name":"Kevin","group":3},
+    {"name":"Greg","group":4},
+    {"name":"Brian","group":5},
+    {"name":"Robert","group":6},
+    {"name":"Richard","group":7},
+    {"name":"Leo","group":8},
+    {"name":"Dylan","group":9},
+    {"name":"Derek","group":10}
+  ],
+  "links":[
+    {"source":1,"target":0,"value":1},
+    {"source":2,"target":0,"value":8},
+    {"source":3,"target":0,"value":10},
+    {"source":3,"target":2,"value":6},
+    {"source":4,"target":0,"value":1},
+    {"source":5,"target":0,"value":1},
+    {"source":6,"target":0,"value":1},
+    {"source":7,"target":0,"value":1},
+    {"source":8,"target":0,"value":2},
+    {"source":9,"target":0,"value":1}
+  ]
+}
