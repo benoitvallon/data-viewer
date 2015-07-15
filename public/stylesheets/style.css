@@ -1,5 +1,4 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -22,5 +21,5 @@ a {
 
 .node text {
   pointer-events: none;
-  font: 12px sans-serif;
+  font: 8px sans-serif;
 }
