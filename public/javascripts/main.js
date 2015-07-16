@@ -6,11 +6,17 @@ var d3 = require('d3');
 
 var D3Chart = React.createClass({
   getInitialState: function() {
-    return {};
+    return {
+      numberOfBookmarks: 0
+    };
   },
 
   componentDidMount: function() {
+
     $.get(this.props.source, function(result) {
+      this.setState({
+        'numberOfBookmarks': result.length
+      });
 
       var myBkm = {}
       result.forEach(function(element) {
@@ -152,7 +158,7 @@ var D3Chart = React.createClass({
 
   render: function() {
     return (
-      <div>My bookmark's folders structure</div>
+      <div>My bookmark's folders structure: {this.state.numberOfBookmarks} bookmarks</div>
     );
   }
 });
