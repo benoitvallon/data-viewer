@@ -14,6 +14,21 @@ $(document).ready(function () {
         '</div>');
     });
   });
+
+  $('.button-extract-tree').on('click', function () {
+    var button = $(this).button('loading')
+
+    getBookmarksTree(function() {
+      button.button('reset');
+      $('.button-extract-tree').after(
+        '<div class="alert alert-success fade in">'+
+          '<button type="button" class="close" ' +
+            'data-dismiss="alert" aria-hidden="true">' + '&times;' +
+          '</button>' +
+          '<strong>Success!</strong> Bookmarks tree saved' +
+        '</div>');
+    });
+  });
 });
 
 var flattenBookmarksTree = function(bookmarkTree) {
@@ -58,6 +73,23 @@ var getBookmarks = function(callback) {
     $.ajax({
       type: "POST",
       url: 'http://localhost:3000/api/v1/bookmarks',
+      data: JSON.stringify(bookmarks),
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json',
+      success: callback
+    });
+  });
+}
+
+
+// Browse the bookmark tree, and print the folder and nodes.
+var getBookmarksTree = function(callback) {
+  chrome.bookmarks.getTree(function(bookmarkTree) {
+    var bookmarks = bookmarkTree[0].children[0];
+
+    $.ajax({
+      type: "POST",
+      url: 'http://localhost:3000/api/v1/bookmarks/tree',
       data: JSON.stringify(bookmarks),
       contentType: 'application/json; charset=utf-8',
       dataType: 'json',

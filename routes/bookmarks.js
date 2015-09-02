@@ -6,10 +6,10 @@ var router = express.Router();
 var pg = require('pg');
 var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/dataviewer';
 
-var selectFromIds = function(client, ids, callback) {
+var selectFromIds = function(table, client, ids, callback) {
   var results = [];
 
-  var queryString = 'SELECT * FROM bookmarks';
+  var queryString = 'SELECT * FROM ' + table;
   if(ids && ids.length) {
     queryString += ' WHERE id IN (' + ids.join(',') + ')';
   }
@@ -38,7 +38,22 @@ router.get('/api/v1/bookmarks', function(req, res) {
   // Get a Postgres client from the connection pool
   pg.connect(connectionString, function(err, client, done) {
 
-    selectFromIds(client, [], function(err, results) {
+    selectFromIds('bookmarks', client, [], function(err, results) {
+      return res.json(results);
+    });
+
+    // Handle Errors
+    if(err) {
+      console.log(err);
+    }
+  });
+});
+
+router.get('/api/v1/bookmarks/tree', function(req, res) {
+  // Get a Postgres client from the connection pool
+  pg.connect(connectionString, function(err, client, done) {
+
+    selectFromIds('bookmarkstree', client, [], function(err, results) {
       return res.json(results);
     });
 
@@ -76,9 +91,40 @@ router.post('/api/v1/bookmarks', function(req, res) {
             return console.error('error running query', err);
           }
           console.log(result.rows[0], err);
-          selectFromIds(client, [15654, 15655], function(err, results) {
+          selectFromIds('bookmarks', client, [15654, 15655], function(err, results) {
             return res.json(results);
           });
+        });
+      });
+    } else {
+      // nothing was sent, so we return nothing
+      return res.json([]);
+    }
+
+    // Handle Errors
+    if(err) {
+      console.log(err);
+    }
+  });
+});
+
+router.post('/api/v1/bookmarks/tree', function(req, res) {
+  var results = [];
+
+  // Get a Postgres client from the connection pool
+  pg.connect(connectionString, function(err, client, done) {
+    console.log('connect', req.body);
+    if(req.body) {
+      // SQL Query > Insert Data
+      client.query('INSERT INTO bookmarkstree("tree") values($1) RETURNING id', [
+        req.body
+      ], function(err, result) {
+        if(err) {
+          return console.error('error running query', err);
+        }
+        console.log(result.rows[0], err);
+        selectFromIds('bookmarks', client, [15654, 15655], function(err, results) {
+          return res.json(results);
         });
       });
     } else {

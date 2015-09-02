@@ -14,6 +14,10 @@ var query = client.query('CREATE TABLE bookmarks(' +
   '"chromeParentId" BIGINT,' +
   '"chromeIndex" BIGINT,' +
   '"folder" VARCHAR(1024)' +
+');'+
+'CREATE TABLE bookmarkstree(' +
+  '"id" SERIAL PRIMARY KEY,' +
+  '"tree" TEXT NOT NULL' +
 ')');
 
 query.on('end', function() { client.end(); });
