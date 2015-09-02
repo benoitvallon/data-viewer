@@ -152,6 +152,7 @@ var D3Chart = React.createClass({
           })
         });
 
+
       }
     }.bind(this));
   },
@@ -163,7 +164,4 @@ var D3Chart = React.createClass({
   }
 });
 
-React.render(
-  <D3Chart source='/api/v1/bookmarks' />,
-  document.getElementById('example')
-);
+module.exports = D3Chart;

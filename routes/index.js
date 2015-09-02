@@ -3,7 +3,15 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('force', { title: 'Force graph' });
+});
+
+router.get('/force', function(req, res, next) {
+  res.render('force', { title: 'Force graph' });
+});
+
+router.get('/tilford', function(req, res, next) {
+  res.render('tilford', { title: 'Tilford graph' });
 });
 
 module.exports = router;
