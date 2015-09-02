@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 var React = require('react');
 var $ = require('jquery');
@@ -164,4 +164,11 @@ var D3Chart = React.createClass({
   }
 });
 
-module.exports = D3Chart;
+var render = function() {
+  React.render(
+    <D3Chart source='/api/v1/bookmarks' />,
+        document.getElementById('force-graph')
+  );
+}
+
+module.exports = render;

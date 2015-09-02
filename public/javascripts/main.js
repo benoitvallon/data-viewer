@@ -1,9 +1,8 @@
-'use strict'
+'use strict';
 
 var React = require('react');
-var D3Chart = require('./d3-force.js');
+var D3ChartForce = require('./d3-force.js');
+var D3ChartTilford = require('./d3-tilford.js');
 
-React.render(
-  <D3Chart source='/api/v1/bookmarks' />,
-      document.getElementById('force-graph')
-);
+// D3ChartForce();
+D3ChartTilford();
