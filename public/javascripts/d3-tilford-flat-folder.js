@@ -14,12 +14,9 @@ var D3Chart = React.createClass({
   componentDidMount: function() {
 
     $.get(this.props.source, function(result) {
-      this.setState({
-        'numberOfBookmarks': result.length
-      });
-
       var root = JSON.parse(result[0].tree);
 
+      var totalCounter = 0
       var countChildren = function(tree) {
         if(!tree.children) {
           return;
@@ -35,6 +32,7 @@ var D3Chart = React.createClass({
           }
         })
         tree.counter = counter;
+        totalCounter += counter;
         tree.title = tree.title + ' (' + counter + ')';
         tree.children = children;
         tree.children.forEach(function(child) {
@@ -43,6 +41,10 @@ var D3Chart = React.createClass({
       }
 
       countChildren(root)
+
+      this.setState({
+        'numberOfBookmarks': totalCounter
+      });
 
       if (this.isMounted()) {
         var width = 960,
