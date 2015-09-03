@@ -18,6 +18,22 @@ var D3Chart = React.createClass({
         'numberOfBookmarks': result.length
       });
 
+      console.log('result.length', result);
+
+      var ids = {};
+      result.forEach(function(element) {
+        if(!ids[element.chromeId]) {
+          ids[element.chromeId] = element.chromeId;
+        }
+      });
+      var counter = 0;
+      for (var id in ids) {
+        if (ids.hasOwnProperty(id)) {
+          counter++;
+        }
+      }
+      console.log('counter', counter);
+
       var myBkm = {}
       result.forEach(function(element) {
         if(element.folder === '') {
