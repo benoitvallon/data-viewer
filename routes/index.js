@@ -18,4 +18,8 @@ router.get('/tilford-flat', function(req, res, next) {
   res.render('tilford-flat', { title: 'Tilford flat graph' });
 });
 
+router.get('/tilford-folder', function(req, res, next) {
+  res.render('tilford-folder', { title: 'Tilford folder graph' });
+});
+
 module.exports = router;
