@@ -6,7 +6,10 @@ var D3ChartTilford = require('./d3-tilford.js');
 var D3ChartTilfordFlat = require('./d3-tilford-flat.js');
 
 var D3ChartTilfordFolder = require('./d3-tilford-folder.js');
+var D3ChartTilfordFlatFolder = require('./d3-tilford-flat-folder.js');
+
 // D3ChartForce();
 // D3ChartTilford();
 // D3ChartTilfordFlat();
 // D3ChartTilfordFolder();
+D3ChartTilfordFlatFolder()
